@@ -1,0 +1,89 @@
+.AddCandidateForm {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.AddCandidateForm fieldset {
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+}
+
+.AddCandidateForm legend {
+  padding: 0 0.5rem;
+  font-weight: 600;
+}
+
+.AddCandidateForm label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.75rem;
+  gap: 0.25rem;
+}
+
+.AddCandidateForm input,
+.AddCandidateForm textarea {
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.AddCandidateForm-block {
+  border: 1px dashed #555;
+  border-radius: 6px;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.AddCandidateForm-error {
+  color: #ffaaaa;
+  font-size: 0.85rem;
+}
+
+.AddCandidateForm-error--global {
+  border: 1px solid #ffaaaa;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+}
+
+.AddCandidateForm-success {
+  border: 1px solid #7fd67f;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  color: #d9ffd9;
+}
+
+.AddCandidateForm-submit,
+.AddCandidateForm-secondary {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.AddCandidateForm-submit {
+  background-color: #61dafb;
+  color: #000;
+  font-weight: 600;
+  align-self: flex-start;
+}
+
+.AddCandidateForm-secondary {
+  background-color: transparent;
+  border: 1px solid #61dafb;
+  color: #61dafb;
+  margin-top: 0.5rem;
+}
+
+.AddCandidateForm-suggestions {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.AddCandidateForm-suggestions ul {
+  padding-left: 1.25rem;
+}
+

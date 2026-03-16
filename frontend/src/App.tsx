@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import './App.css'
+import { AddCandidateForm } from './components/add-candidate-form/AddCandidateForm'
 
 function Dashboard() {
   return (
@@ -25,7 +26,7 @@ function AddCandidatePage() {
     <main className='App'>
       <header className='App-header'>
         <h1>Add candidate</h1>
-        <p>Candidate form coming soon.</p>
+        <AddCandidateForm />
         <Link to='/' className='App-link'>
           Back to dashboard
         </Link>
