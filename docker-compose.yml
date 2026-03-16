@@ -2,11 +2,11 @@ version: "3.1"
 
 services:
   db:
-    image: postgres
+    image: postgres:18
     restart: always
     environment:
       POSTGRES_PASSWORD: D1ymf8wyQEGthFR1E9xhCq
       POSTGRES_USER: LTIdbUser
       POSTGRES_DB: LTIdb
     ports:
-      - 5432:5432
+      - 5434:5432
