@@ -13,33 +13,54 @@ context: |
   - App surface: React SPA (client) and REST API (Express server)
 
   # Project conventions
-  - Workflow: Plan mode then Act mode; plans must be approved before implementation
-  - Frontend: function components, typed props (interfaces), hooks at top level, controlled forms; prefer composition over inheritance; memoize where appropriate
-  - Backend: REST APIs documented with Swagger; all data access through Prisma
-  - Structure: keep backend (src/, prisma/) and frontend (src/, public/) layout; do not mix client and server code
-  - Bilingual: project docs and README support EN and ES
+  - Workflow: Plan mode then Act mode; plans must be approved before implementation. When in plan mode, output the full plan each time.
+  - Structure: keep backend (src/, prisma/) and frontend (src/, public/) layout; do not mix client and server code.
+  - Bilingual: project docs and README support EN and ES.
+  - Context: project may use a Memory Bank (memory-bank/*.md) for scope and progress; prefer existing patterns and file structure.
+
+  # Frontend conventions (from .cursor/rules)
+  - Components: function keyword, typed props (interfaces/types, PascalCase); named exports; .tsx. Directories: lowercase-with-dashes (e.g. components/auth-wizard).
+  - Hooks: only at top level; extract reusable logic into custom hooks (e.g. useAuth, useFormValidation); .ts for hooks/utils.
+  - State: Zustand for global state; lift state up before introducing Context; React Context for tree-wide sharing when needed.
+  - Forms: controlled components; custom hooks for simple forms; react-hook-form with <Controller> for complex forms. Separate client-side and server-side validation; optional schema lib (e.g. Joi).
+  - Styling: SCSS modules; co-locate a .module.scss with each component. Use SCSS vars ($primary-color), mixins (@mixin flexCenter), parent selector & for pseudo-classes. Partials _variables.scss, _mixins.scss in styles/index.scss. Class names camelCase or BEM (.card__header). Minimal global styles (reset, typography).
+  - Performance: minimize client-only useState/useEffect; dynamic import + React.lazy/Suspense for non-critical code; optimize images (WebP, dimensions, lazy-load); useMemo for expensive work, React.memo for pure components; structure for tree-shaking. Avoid inline functions in JSX—use handlers or useCallback.
+  - Refs only for direct DOM access. Implement an error boundary. Clean up effects in useEffect. Use guard clauses (early returns) for errors.
+  - Accessibility: semantic HTML, appropriate ARIA, full keyboard navigation.
+  - Code style: follow Standard.js (2-space indent, single quotes, no semicolons unless needed, ===/!==, camelCase vars/functions, PascalCase components/interfaces). Concise TypeScript; functional/declarative; no classes. Descriptive names (e.g. isLoading, hasError). File layout: exported component → subcomponents → hooks/helpers → static content.
+  - TypeScript: strict mode; explicit return types and object literal types; noImplicitAny, strictNullChecks, strictFunctionTypes; minimize @ts-ignore/@ts-expect-error.
+  - Error handling: validate inputs early (guard clauses); happy path last; clear user-facing error messages; log or report unexpected errors.
+
+  # Backend conventions
+  - REST APIs documented with Swagger; all data access through Prisma.
+  - Validate inputs and preconditions early; clear error responses; log unexpected errors.
 
   # Important constraints
-  - Backend must run on port 3010; frontend dev server on port 3000
-  - Database must be running (PostgreSQL) before backend start; connection via .env
-  - Run order: start Docker/PostgreSQL → backend (build then dev) → frontend (build then start)
-  - Do not commit .env; use env vars for DB URL and secrets
+  - Backend must run on port 3010; frontend dev server on port 3000.
+  - Database must be running (PostgreSQL) before backend start; connection via .env.
+  - Run order: start Docker/PostgreSQL → backend (build then dev) → frontend (build then start).
+  - Do not commit .env; use env vars for DB URL and secrets.
 
   # External dependencies
-  - Node.js and npm (for frontend and backend install, build, and run)
-  - Docker and Docker Compose (for running PostgreSQL in development)
-  - PostgreSQL (via Docker: host localhost, port 5432; user/postgres, password/database name from .env; default DB name mydatabase)
-  - Optional: PostgreSQL client for direct DB access
+  - Node.js and npm (for frontend and backend install, build, and run).
+  - Docker and Docker Compose (for running PostgreSQL in development).
+  - PostgreSQL (via Docker: host localhost, port 5432; user/postgres, password/database name from .env; default DB name mydatabase).
+  - Optional: PostgreSQL client for direct DB access. Frontend may use react-hook-form, Joi (or similar) for validation; Zustand for global state.
 
 rules:
   proposal:
-    - Keep proposals focused; include a brief "Non-goals" section
-    - Align with LTI domain (talent tracking) and existing frontend/backend structure
+    - Keep proposals focused; include a brief "Non-goals" section.
+    - Align with LTI domain (talent tracking) and existing frontend/backend structure.
+    - Respect Plan/Act workflow and Memory Bank if present.
   specs:
-    - Reference OpenAPI/Swagger for API contracts when applicable
-    - Specify data models (Prisma schema in backend/prisma/) and UI behavior (React components in frontend/src/) clearly
-    - Consider EN/ES when specifying copy or messages
+    - Reference OpenAPI/Swagger for API contracts when applicable.
+    - Specify data models (Prisma schema in backend/prisma/) and UI behavior (React components in frontend/src/) clearly.
+    - Consider EN/ES when specifying copy or messages.
+    - Call out state (Zustand vs Context vs local), forms (controlled, react-hook-form), validation (client vs server), and styling (SCSS modules) where relevant.
+    - Include accessibility (semantic HTML, ARIA, keyboard) and error handling (guard clauses, user messages, logging) in UI/API specs.
   tasks:
-    - Break tasks into chunks of roughly 1–2 hours of work
-    - Order tasks by dependency (e.g. DB/Prisma → API → frontend integration)
-    - Note when Docker/PostgreSQL or .env setup is required
+    - Break tasks into chunks of roughly 1–2 hours of work.
+    - Order tasks by dependency (e.g. DB/Prisma → API → frontend integration).
+    - Note when Docker/PostgreSQL or .env setup is required.
+    - Follow naming (lowercase-with-dashes dirs, .tsx/.ts/.module.scss, PascalCase types) and file layout (component → subcomponents → hooks → static).
+    - Prefer existing project patterns; review codebase before suggesting new structure.
