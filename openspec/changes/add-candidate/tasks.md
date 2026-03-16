@@ -21,7 +21,7 @@
 
 - [x] 4.1 Add react-router-dom; configure routes in App.tsx (e.g. / or /dashboard for dashboard, /candidates/new for add-candidate form)
 - [x] 4.2 Create recruiter dashboard page (e.g. frontend/src/pages/dashboard.tsx or components/dashboard) with visible, accessible "Add candidate" button/link linking to /candidates/new
-- [ ] 4.3 Add dashboard styles (e.g. Dashboard.module.scss) per project SCSS conventions
+- [x] 4.3 Add dashboard styles (e.g. Dashboard.module.scss) per project SCSS conventions
 
 ## 5. Frontend — Add-candidate form and API client
 

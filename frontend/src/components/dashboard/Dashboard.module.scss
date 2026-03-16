@@ -1,0 +1,40 @@
+.dashboard {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  background-color: #282c34;
+  padding: 2rem 3rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+}
+
+.primaryLink {
+  display: inline-block;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  background-color: #61dafb;
+  color: #000;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.primaryLink:hover,
+.primaryLink:focus {
+  background-color: #52bcd8;
+}
+
