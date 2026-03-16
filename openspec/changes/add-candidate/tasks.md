@@ -35,7 +35,7 @@
 ## 6. Frontend — Autocomplete and polish
 
 - [x] 6.1 Optional: implement useEducationSuggestions and useExperienceSuggestions hooks and wire to form fields (dropdown or combobox) when API returns suggestions (implemented as debounced helpers within the form)
-- [ ] 6.2 Optional: add error boundary around add-candidate page or form
+- [x] 6.2 Optional: add error boundary around add-candidate page or form
 - [x] 6.3 Verify focus management and aria-describedby for validation errors; test keyboard flow (done as part of form implementation)
 
 ## 7. Frontend — Tests
