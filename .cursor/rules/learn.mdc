@@ -1,0 +1,16 @@
+---
+description: "Self-learning of project patterns"
+alwaysApply: true
+---
+
+# Self-learning of Patterns
+
+Analyze the current project, identify the following patterns, and apply them consistently:
+
+1. **File structure**: How components, services, and utils are organized
+2. **Naming conventions**: For files, functions, variables, and types
+3. **Import patterns**: Absolute paths vs relative paths, order of imports
+4. **Error handling**: try/catch structure, logging, error types
+5. **Code style**: Use of TypeScript strict, syntax preferences
+
+Before suggesting code, review existing examples in the project and maintain consistency.
