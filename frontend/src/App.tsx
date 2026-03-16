@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import './App.css'
+
+function Dashboard() {
+  return (
+    <main className='App'>
+      <header className='App-header'>
+        <h1>LTI - Talent Tracking System</h1>
+        <p>Recruiter dashboard</p>
+        <Link
+          to='/candidates/new'
+          className='App-link'
+          aria-label='Add candidate'
+        >
+          Add candidate
+        </Link>
+      </header>
+    </main>
+  )
+}
+
+function AddCandidatePage() {
+  return (
+    <main className='App'>
+      <header className='App-header'>
+        <h1>Add candidate</h1>
+        <p>Candidate form coming soon.</p>
+        <Link to='/' className='App-link'>
+          Back to dashboard
+        </Link>
+      </header>
+    </main>
+  )
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Dashboard />} />
+        <Route path='/candidates/new' element={<AddCandidatePage />} />
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
-export default App;
+export default App
