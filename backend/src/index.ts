@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import express from 'express'
+import cors from 'cors'
 import { PrismaClient } from '@prisma/client'
 import dotenv from 'dotenv'
 import path from 'path'
@@ -35,6 +36,7 @@ const upload = multer({
   }
 })
 
+app.use(cors())
 app.use(express.json())
 
 const port = 3010
