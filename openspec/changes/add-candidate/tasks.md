@@ -28,7 +28,7 @@
 - [x] 5.1 Create API client (e.g. frontend/src/api/candidates.ts): createCandidate(formData: FormData), getEducationSuggestions(q?), getExperienceSuggestions(q?) using REACT_APP_API_URL or proxy
 - [x] 5.2 Create AddCandidateForm component (frontend/src/components/add-candidate-form/AddCandidateForm.tsx) with react-hook-form: fields for firstName, lastName, email, phone, address, dynamic education/experience blocks, CV file input (accept PDF/DOCX)
 - [x] 5.3 Add client-side validation schema (required fields, email format, file type/size); display validation messages on blur and submit
-- [ ] 5.4 Create useAddCandidate hook: submit multipart FormData, handle loading/success/error state, map API errors to user-facing messages (handled inline in form for now)
+- [x] 5.4 Create useAddCandidate hook: submit multipart FormData, handle loading/success/error state, map API errors to user-facing messages
 - [x] 5.5 Add add-candidate page (e.g. frontend/src/pages/add-candidate.tsx) that renders AddCandidateForm and shows success confirmation or error message after submit
 - [x] 5.6 Co-locate AddCandidateForm styles; ensure form is responsive and uses semantic HTML, ARIA, and keyboard navigation
 
