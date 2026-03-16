@@ -68,6 +68,20 @@ npm start
 
 The backend server will be running at http://localhost:3010, and the frontend will be available at http://localhost:3000.
 
+### Add candidate flow
+
+- From the frontend dashboard (`/`), use the **“Add candidate”** button to open the add-candidate form.
+- The form collects: first name, last name, email (required); phone, address; one or more education and work experience entries; and an optional CV.
+- The CV must be a **PDF or DOCX** file with a maximum size of **5MB**.
+- When you submit, the frontend sends a multipart request to the backend:
+  - `POST http://localhost:3010/api/candidates`
+  - On success, you will see a confirmation message.
+  - On validation errors or duplicate email, the form shows clear error messages.
+- Autocomplete suggestions for education and experience are powered by:
+  - `GET /api/candidates/education/suggestions?q=...`
+  - `GET /api/candidates/experience/suggestions?q=...`
+- API documentation is available at `http://localhost:3010/api-docs` (Swagger UI).
+
 ## Docker y PostgreSQL
 
 This project uses Docker to run a PostgreSQL database. Here's how to get it up and running:
@@ -163,6 +177,20 @@ npm start
 ```
 
 El servidor backend estará corriendo en http://localhost:3010 y el frontend estará disponible en http://localhost:3000.
+
+### Flujo para añadir candidatos
+
+- Desde el dashboard del frontend (`/`), usa el botón **“Add candidate”** para abrir el formulario de alta de candidatos.
+- El formulario recoge: nombre, apellidos, email (obligatorios); teléfono, dirección; una o más entradas de educación y experiencia laboral; y un CV opcional.
+- El CV debe ser un archivo **PDF o DOCX** con un tamaño máximo de **5MB**.
+- Al enviar, el frontend envía una petición multipart al backend:
+  - `POST http://localhost:3010/api/candidates`
+  - En caso de éxito se muestra un mensaje de confirmación.
+  - En caso de errores de validación o email duplicado, el formulario muestra mensajes de error claros.
+- Las sugerencias de educación y experiencia se obtienen a través de:
+  - `GET /api/candidates/education/suggestions?q=...`
+  - `GET /api/candidates/experience/suggestions?q=...`
+- La documentación de la API está disponible en `http://localhost:3010/api-docs` (Swagger UI).
 
 ## Docker y PostgreSQL
 
