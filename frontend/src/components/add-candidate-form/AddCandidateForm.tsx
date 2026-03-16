@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { getEducationSuggestions, getExperienceSuggestions } from '../../api/candidates'
 import { useAddCandidate } from '../../hooks/useAddCandidate'
@@ -250,7 +250,7 @@ export function AddCandidateForm() {
           <div className='AddCandidateForm-suggestions'>
             <span>Education suggestions:</span>
             <ul>
-              {eduSuggestions.map(suggestion => (
+              {eduSuggestions.map((suggestion: string) => (
                 <li key={suggestion}>
                   <button
                     type='button'
@@ -328,7 +328,7 @@ export function AddCandidateForm() {
           <div className='AddCandidateForm-suggestions'>
             <span>Experience suggestions:</span>
             <ul>
-              {expSuggestions.map(suggestion => (
+              {expSuggestions.map((suggestion: string) => (
                 <li key={suggestion}>
                   <button
                     type='button'
