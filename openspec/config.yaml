@@ -1,22 +1,45 @@
 schema: spec-driven
 
 context: |
-  Tech stack:
-    - Frontend: React 18, TypeScript, Create React App, Jest, Testing Library
-    - Backend: Node.js, Express, TypeScript, Prisma, Swagger (OpenAPI)
-  Conventions:
-    - Plan mode then Act mode; plans must be approved before implementation
-    - React: function components, typed props (interfaces), hooks at top level, controlled forms
-    - Prefer composition over inheritance; memoize where appropriate
-    - Backend: REST APIs documented with Swagger; Prisma for data access
+  # Tech stack
+  - Frontend: React 18, TypeScript, Create React App; main code in frontend/src; static assets in public/; production build in build/
+  - Backend: Node.js, Express, TypeScript; entry point backend/src/index.ts; Prisma schema in backend/prisma/; env in backend/.env
+  - API docs: Swagger (OpenAPI) via swagger-jsdoc and swagger-ui-express
+  - Database: PostgreSQL via Prisma ORM
+
+  # Domain context
+  - Project: LTI — Talent Tracking System (Sistema de Seguimiento de Talento)
+  - Purpose: Full-stack application for talent tracking and follow-up
+  - App surface: React SPA (client) and REST API (Express server)
+
+  # Project conventions
+  - Workflow: Plan mode then Act mode; plans must be approved before implementation
+  - Frontend: function components, typed props (interfaces), hooks at top level, controlled forms; prefer composition over inheritance; memoize where appropriate
+  - Backend: REST APIs documented with Swagger; all data access through Prisma
+  - Structure: keep backend (src/, prisma/) and frontend (src/, public/) layout; do not mix client and server code
+  - Bilingual: project docs and README support EN and ES
+
+  # Important constraints
+  - Backend must run on port 3010; frontend dev server on port 3000
+  - Database must be running (PostgreSQL) before backend start; connection via .env
+  - Run order: start Docker/PostgreSQL → backend (build then dev) → frontend (build then start)
+  - Do not commit .env; use env vars for DB URL and secrets
+
+  # External dependencies
+  - Node.js and npm (for frontend and backend install, build, and run)
+  - Docker and Docker Compose (for running PostgreSQL in development)
+  - PostgreSQL (via Docker: host localhost, port 5432; user/postgres, password/database name from .env; default DB name mydatabase)
+  - Optional: PostgreSQL client for direct DB access
 
 rules:
   proposal:
     - Keep proposals focused; include a brief "Non-goals" section
-    - Align with existing frontend/backend structure and tech stack
+    - Align with LTI domain (talent tracking) and existing frontend/backend structure
   specs:
     - Reference OpenAPI/Swagger for API contracts when applicable
-    - Specify data models (Prisma schema) and UI behavior (React components) clearly
+    - Specify data models (Prisma schema in backend/prisma/) and UI behavior (React components in frontend/src/) clearly
+    - Consider EN/ES when specifying copy or messages
   tasks:
     - Break tasks into chunks of roughly 1–2 hours of work
-    - Order tasks by dependency (e.g. API then frontend integration)
+    - Order tasks by dependency (e.g. DB/Prisma → API → frontend integration)
+    - Note when Docker/PostgreSQL or .env setup is required
