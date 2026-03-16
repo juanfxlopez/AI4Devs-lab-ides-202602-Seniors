@@ -7,6 +7,15 @@ import {
 } from '../../api/candidates'
 import './AddCandidateForm.css'
 
+function debounce<F extends (...args: any[]) => void>(fn: F, delay: number) {
+  let timeout: ReturnType<typeof setTimeout> | undefined
+
+  return (...args: Parameters<F>) => {
+    if (timeout) clearTimeout(timeout)
+    timeout = setTimeout(() => fn(...args), delay)
+  }
+}
+
 export interface EducationEntry {
   institution?: string
   degree?: string
@@ -41,6 +50,7 @@ export function AddCandidateForm() {
     register,
     control,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting }
   } = useForm<CandidateFormValues>({
     defaultValues: {
@@ -59,6 +69,8 @@ export function AddCandidateForm() {
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
   const [eduSuggestions, setEduSuggestions] = useState<string[]>([])
   const [expSuggestions, setExpSuggestions] = useState<string[]>([])
+  const [activeEduIndex, setActiveEduIndex] = useState<number | null>(null)
+  const [activeExpIndex, setActiveExpIndex] = useState<number | null>(null)
 
   const {
     fields: educationFields,
@@ -75,6 +87,32 @@ export function AddCandidateForm() {
     control,
     name: 'workExperience'
   })
+
+  const debouncedLoadEduSuggestions = React.useMemo(
+    () =>
+      debounce(async (value: string) => {
+        try {
+          const suggestions = await getEducationSuggestions(value)
+          setEduSuggestions(suggestions)
+        } catch {
+          setEduSuggestions([])
+        }
+      }, 300),
+    []
+  )
+
+  const debouncedLoadExpSuggestions = React.useMemo(
+    () =>
+      debounce(async (value: string) => {
+        try {
+          const suggestions = await getExperienceSuggestions(value)
+          setExpSuggestions(suggestions)
+        } catch {
+          setExpSuggestions([])
+        }
+      }, 300),
+    []
+  )
 
   const onSubmit = async (values: CandidateFormValues) => {
     setGlobalError(null)
@@ -116,24 +154,16 @@ export function AddCandidateForm() {
     }
   }
 
-  const handleEducationBlur = async (value: string) => {
+  const handleEducationBlur = (value: string, index: number) => {
     if (!value) return
-    try {
-      const suggestions = await getEducationSuggestions(value)
-      setEduSuggestions(suggestions)
-    } catch {
-      setEduSuggestions([])
-    }
+    setActiveEduIndex(index)
+    debouncedLoadEduSuggestions(value)
   }
 
-  const handleExperienceBlur = async (value: string) => {
+  const handleExperienceBlur = (value: string, index: number) => {
     if (!value) return
-    try {
-      const suggestions = await getExperienceSuggestions(value)
-      setExpSuggestions(suggestions)
-    } catch {
-      setExpSuggestions([])
-    }
+    setActiveExpIndex(index)
+    debouncedLoadExpSuggestions(value)
   }
 
   return (
@@ -206,7 +236,7 @@ export function AddCandidateForm() {
               <input
                 {...register(`education.${index}.institution` as const)}
                 onBlur={event =>
-                  handleEducationBlur(event.target.value || '')
+                  handleEducationBlur(event.target.value || '', index)
                 }
               />
             </label>
@@ -215,7 +245,7 @@ export function AddCandidateForm() {
               <input
                 {...register(`education.${index}.degree` as const)}
                 onBlur={event =>
-                  handleEducationBlur(event.target.value || '')
+                  handleEducationBlur(event.target.value || '', index)
                 }
               />
             </label>
@@ -224,7 +254,7 @@ export function AddCandidateForm() {
               <input
                 {...register(`education.${index}.field` as const)}
                 onBlur={event =>
-                  handleEducationBlur(event.target.value || '')
+                  handleEducationBlur(event.target.value || '', index)
                 }
               />
             </label>
@@ -251,12 +281,25 @@ export function AddCandidateForm() {
         >
           Add education
         </button>
-        {eduSuggestions.length > 0 && (
+        {eduSuggestions.length > 0 && activeEduIndex !== null && (
           <div className='AddCandidateForm-suggestions'>
             <span>Education suggestions:</span>
             <ul>
               {eduSuggestions.map(suggestion => (
-                <li key={suggestion}>{suggestion}</li>
+                <li key={suggestion}>
+                  <button
+                    type='button'
+                    onClick={() => {
+                      setValue(
+                        `education.${activeEduIndex}.institution`,
+                        suggestion,
+                        { shouldDirty: true, shouldTouch: true }
+                      )
+                    }}
+                  >
+                    {suggestion}
+                  </button>
+                </li>
               ))}
             </ul>
           </div>
@@ -272,7 +315,7 @@ export function AddCandidateForm() {
               <input
                 {...register(`workExperience.${index}.company` as const)}
                 onBlur={event =>
-                  handleExperienceBlur(event.target.value || '')
+                  handleExperienceBlur(event.target.value || '', index)
                 }
               />
             </label>
@@ -281,7 +324,7 @@ export function AddCandidateForm() {
               <input
                 {...register(`workExperience.${index}.role` as const)}
                 onBlur={event =>
-                  handleExperienceBlur(event.target.value || '')
+                  handleExperienceBlur(event.target.value || '', index)
                 }
               />
             </label>
@@ -316,12 +359,25 @@ export function AddCandidateForm() {
         >
           Add work experience
         </button>
-        {expSuggestions.length > 0 && (
+        {expSuggestions.length > 0 && activeExpIndex !== null && (
           <div className='AddCandidateForm-suggestions'>
             <span>Experience suggestions:</span>
             <ul>
               {expSuggestions.map(suggestion => (
-                <li key={suggestion}>{suggestion}</li>
+                <li key={suggestion}>
+                  <button
+                    type='button'
+                    onClick={() => {
+                      setValue(
+                        `workExperience.${activeExpIndex}.company`,
+                        suggestion,
+                        { shouldDirty: true, shouldTouch: true }
+                      )
+                    }}
+                  >
+                    {suggestion}
+                  </button>
+                </li>
               ))}
             </ul>
           </div>
