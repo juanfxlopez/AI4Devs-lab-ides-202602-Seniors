@@ -1,6 +1,6 @@
 Please analyze and fix the Jira ticket: $ARGUMENTS.
 
-Note: If story is given directly, there is no need to connect Jira MCP, and just provide the output directly on the chat.
+Note: If story is given directly, there is no need to connect Jira MCP, and just provide the output in markdown format directly on the chat.
 
 Follow these steps:
 
